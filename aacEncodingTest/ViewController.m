@@ -7,10 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "AACEncodingManger.h"
 
-@interface ViewController ()
+@interface ViewController () 
 
-@property (nonatomic, strong) NSData *fileBytes;
+@property (nonatomic, strong) NSString *filePath;
 
 @end
 
@@ -18,25 +19,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)playButtonAction:(id)sender {
+    
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSString *myFile = [mainBundle pathForResource: @"testaudio" ofType: @"aac"];
     
     if([[NSFileManager defaultManager] fileExistsAtPath:myFile]) {
-        self.fileBytes = [[NSFileManager defaultManager] contentsAtPath:myFile];
-        NSLog(@"File read, number of bytes: %ul", [self.fileBytes length]);
+        _filePath = myFile;
+        NSLog(@"File exists");
     } else {
         NSLog(@"File not exits");
     }
+}
+
+
+- (void)didReceiveMemoryWarning {
+    
+}
+
+- (IBAction)playButtonAction:(id)sender {
+    if (!_filePath){ return; }
+    [[AACEncodingManger sharedInstance] setUpStreamFromFileWithPath:_filePath];
 }
 
 @end

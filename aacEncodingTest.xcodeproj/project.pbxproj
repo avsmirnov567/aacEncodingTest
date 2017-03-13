@@ -16,6 +16,7 @@
 		E148E0201E766A3500CC1203 /* testaudio.aac in Resources */ = {isa = PBXBuildFile; fileRef = E148E01F1E766A3500CC1203 /* testaudio.aac */; };
 		E148E0231E766AD300CC1203 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0221E766AD300CC1203 /* CoreAudio.framework */; };
 		E148E0251E766AD900CC1203 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0241E766AD900CC1203 /* AudioToolbox.framework */; };
+		E148E0291E767C9600CC1203 /* AACEncodingManger.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0281E767C9600CC1203 /* AACEncodingManger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		E148E01F1E766A3500CC1203 /* testaudio.aac */ = {isa = PBXFileReference; lastKnownFileType = file; name = testaudio.aac; path = Resources/testaudio.aac; sourceTree = "<group>"; };
 		E148E0221E766AD300CC1203 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		E148E0241E766AD900CC1203 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E148E0271E767C9600CC1203 /* AACEncodingManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACEncodingManger.h; path = Utils/AACEncodingManger.h; sourceTree = "<group>"; };
+		E148E0281E767C9600CC1203 /* AACEncodingManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACEncodingManger.m; path = Utils/AACEncodingManger.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,15 +70,14 @@
 		E148E0061E7667B400CC1203 /* aacEncodingTest */ = {
 			isa = PBXGroup;
 			children = (
+				E148E0261E767C8300CC1203 /* Utils */,
 				E148E01E1E76680000CC1203 /* Resources */,
 				E148E00A1E7667B400CC1203 /* AppDelegate.h */,
 				E148E00B1E7667B400CC1203 /* AppDelegate.m */,
 				E148E00D1E7667B400CC1203 /* ViewController.h */,
 				E148E00E1E7667B400CC1203 /* ViewController.m */,
 				E148E0101E7667B400CC1203 /* Main.storyboard */,
-				E148E0131E7667B400CC1203 /* Assets.xcassets */,
 				E148E0151E7667B400CC1203 /* LaunchScreen.storyboard */,
-				E148E0181E7667B400CC1203 /* Info.plist */,
 				E148E0071E7667B400CC1203 /* Supporting Files */,
 			);
 			path = aacEncodingTest;
@@ -84,6 +86,8 @@
 		E148E0071E7667B400CC1203 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E148E0131E7667B400CC1203 /* Assets.xcassets */,
+				E148E0181E7667B400CC1203 /* Info.plist */,
 				E148E0081E7667B400CC1203 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -104,6 +108,15 @@
 				E148E0221E766AD300CC1203 /* CoreAudio.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E148E0261E767C8300CC1203 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E148E0271E767C9600CC1203 /* AACEncodingManger.h */,
+				E148E0281E767C9600CC1203 /* AACEncodingManger.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E148E0291E767C9600CC1203 /* AACEncodingManger.m in Sources */,
 				E148E00F1E7667B400CC1203 /* ViewController.m in Sources */,
 				E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */,
 				E148E0091E7667B400CC1203 /* main.m in Sources */,
