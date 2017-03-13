@@ -17,6 +17,7 @@
 		E148E0231E766AD300CC1203 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0221E766AD300CC1203 /* CoreAudio.framework */; };
 		E148E0251E766AD900CC1203 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0241E766AD900CC1203 /* AudioToolbox.framework */; };
 		E148E0291E767C9600CC1203 /* ASAudioEncodingManger.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */; };
+		E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		E148E0241E766AD900CC1203 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E148E0271E767C9600CC1203 /* ASAudioEncodingManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASAudioEncodingManger.h; path = Utils/ASAudioEncodingManger.h; sourceTree = "<group>"; };
 		E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASAudioEncodingManger.m; path = Utils/ASAudioEncodingManger.m; sourceTree = "<group>"; };
+		E148E02E1E7691A100CC1203 /* NSData+ASBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+ASBinary.h"; path = "Extentions/NSData+ASBinary.h"; sourceTree = "<group>"; };
+		E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+ASBinary.m"; path = "Extentions/NSData+ASBinary.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,7 @@
 		E148E0061E7667B400CC1203 /* aacEncodingTest */ = {
 			isa = PBXGroup;
 			children = (
+				E148E02A1E76915900CC1203 /* Extentions */,
 				E148E0261E767C8300CC1203 /* Utils */,
 				E148E01E1E76680000CC1203 /* Resources */,
 				E148E00A1E7667B400CC1203 /* AppDelegate.h */,
@@ -117,6 +121,15 @@
 				E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		E148E02A1E76915900CC1203 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				E148E02E1E7691A100CC1203 /* NSData+ASBinary.h */,
+				E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */,
+			);
+			name = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */,
 				E148E0291E767C9600CC1203 /* ASAudioEncodingManger.m in Sources */,
 				E148E00F1E7667B400CC1203 /* ViewController.m in Sources */,
 				E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */,
