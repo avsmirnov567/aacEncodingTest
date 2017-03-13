@@ -1,14 +1,14 @@
 //
-//  AACEncodingManger.m
+//  ASAudioEncodingManger.m
 //  aacEncodingTest
 //
 //  Created by Aleksandr Smirnov on 13.03.17.
 //  Copyright © 2017 Line App. All rights reserved.
 //
 
-#import "AACEncodingManger.h"
+#import "ASAudioEncodingManger.h"
 
-@interface AACEncodingManger () <NSStreamDelegate>
+@interface ASAudioEncodingManger () <NSStreamDelegate>
 
 @property (nonatomic, strong) NSInputStream *inputStream;
 @property (nonatomic, assign) long bytesRead;
@@ -17,13 +17,13 @@
 
 @end
 
-@implementation AACEncodingManger
+@implementation ASAudioEncodingManger
 
 + (instancetype)sharedInstance {
-    static AACEncodingManger *instance = nil;
+    static ASAudioEncodingManger *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[AACEncodingManger alloc] init];
+        instance = [[ASAudioEncodingManger alloc] init];
     });
     return instance;
 }
