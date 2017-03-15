@@ -10,6 +10,8 @@
 
 @interface AACDecoder : NSObject
 
+- (void)notifyThatIncomingStreamEnded;
+- (void)startBackgroundThreads;
 - (void)appendDataToEncodedData: (NSMutableData *)dataToAppend;
 - (void)appendBytesToEncodedData: (const void *)bytesToAppend length:(NSInteger)length;
 - (void)findNextFrame;

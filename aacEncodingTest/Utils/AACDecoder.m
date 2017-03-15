@@ -10,12 +10,28 @@
 #import "NSData+ASBinary.h"
 #import <AudioToolbox/AudioToolbox.h>
 
+static const int kBufLength = 2048;
+static const int kADTSHeaderLength = 7;
+
 @interface AACDecoder ()
 
+//background queues
+@property (nonatomic, strong) NSOperationQueue *dataReadingQueue;
+@property (nonatomic, strong) NSOperationQueue *decodingQueue;
+@property (nonatomic, assign) BOOL incomingStreamEnded;
+
+//for reading frames
 @property (nonatomic, strong) NSMutableData *encodedData;
+@property (nonatomic, strong) NSMutableData *buffer;
 @property (nonatomic, assign) NSInteger encodedDataLength;
-@property (nonatomic, assign) NSInteger currentPosition;
+@property (nonatomic, assign) NSInteger currPosInData;
+@property (nonatomic, assign) NSInteger currPosInBuffer;
 @property (nonatomic, assign) AudioStreamBasicDescription inputFormat;
+
+//for decoding
+@property (nonatomic, strong) NSMutableData *decoderBuffer;
+@property (nonatomic, assign) NSInteger decoderBufLength;
+@property (nonatomic, assign) NSInteger currPosInDecoderBuf;
 
 @end
 
@@ -25,11 +41,81 @@
 {
     self = [super init];
     if (self) {
+        _buffer = [NSMutableData dataWithLength:kBufLength];
         _encodedData = nil;
         _encodedDataLength = 0;
-        _currentPosition = 0;
+        _currPosInData = 0;
+        _currPosInBuffer = 0;
+        _decoderBufLength = 0;
+        _currPosInDecoderBuf = 0;
+        _incomingStreamEnded = NO;
+        _decodingQueue = [[NSOperationQueue alloc] init];
+        _decodingQueue.maxConcurrentOperationCount = 1;
+        _decodingQueue.name =  @"com.wheremychildren.ios.decoderProcessingQueue";
+        _dataReadingQueue = [[NSOperationQueue alloc] init];
+        _dataReadingQueue.maxConcurrentOperationCount = 1;
+        _dataReadingQueue.name = @"com.wheremychildren.ios.decoderDataReadingQueue";
     }
     return self;
+}
+
+- (void)notifyThatIncomingStreamEnded{
+    _incomingStreamEnded = YES;
+}
+
+- (BOOL)hasBytesToRead {
+    return (_currPosInData < _encodedDataLength) && (_encodedDataLength>0);
+}
+
+- (BOOL)hasFramesToDecode {
+    return (_currPosInDecoderBuf < _decoderBufLength) && (_decoderBufLength>0);
+}
+
+- (void)startBackgroundThreads {
+    __weak typeof(self) weakSelf = self;
+    
+    NSBlockOperation *readingOperation = [NSBlockOperation blockOperationWithBlock:^{
+        typeof(self) strongSelf = weakSelf;
+        while(1){
+            if ([strongSelf hasBytesToRead]) {
+                [strongSelf refillBuffer];
+                [strongSelf findNextFrame];
+            } else {
+                if (_incomingStreamEnded){
+                    [strongSelf stopDataReadingQueue];
+                    break;
+                }
+            }
+        }
+    }];
+    [self.dataReadingQueue addOperation:readingOperation];
+    
+    NSBlockOperation *decodingOperation = [NSBlockOperation blockOperationWithBlock:^{
+        typeof(self) strongSelf = weakSelf;
+        while (1) {
+            if ([strongSelf hasFramesToDecode]) {
+                
+            }
+        }
+    }];
+    [self.decodingQueue addOperation:decodingOperation];
+    NSLog(@"----> AAC Decoder Queues started!");
+}
+
+- (void)stopDataReadingQueue {
+    _dataReadingQueue.suspended = YES;
+    [_dataReadingQueue cancelAllOperations];
+    _dataReadingQueue.suspended = NO;
+    _dataReadingQueue = nil;
+    NSLog(@"----> DataReadingQueue stopped!");
+}
+
+- (void)stopDecodingTread {
+    _decodingQueue.suspended = YES;
+    [_decodingQueue cancelAllOperations];
+    _decodingQueue.suspended = NO;
+    _decodingQueue = nil;
+    NSLog(@"----> DecodingQueue stopped!");
 }
 
 - (void)appendDataToEncodedData:(NSMutableData *)dataToAppend{
@@ -52,37 +138,72 @@
     _encodedDataLength += length;
 }
 
-- (void)findNextFrame {
-    uint adtsHeaderLength = 7;
-    uint bufLength = 16;
-    uint8_t *buf = malloc(sizeof(char) * bufLength); //буфер для поиска ADTS заголовка
-    int headerStart = -1;
+- (void)refillBuffer {
+    NSInteger dataLengthToKeep = kBufLength - _currPosInBuffer;
+    NSInteger dataLengthToTake = kBufLength - dataLengthToKeep;
     
-    while (_currentPosition-1<(int)(_encodedDataLength-bufLength)) {
-        //заполняем буфер
+    if (_encodedDataLength - _currPosInData > dataLengthToTake) {
+        dataLengthToTake = kBufLength - dataLengthToKeep;
+    } else {
+        dataLengthToTake = _encodedDataLength - _currPosInData;
+    }
+    
+    if (_currPosInBuffer > 0) {
+        NSData *bufUnread = [_buffer subdataWithRange:NSMakeRange(_currPosInBuffer, dataLengthToKeep)];
+        [_buffer replaceBytesInRange:NSMakeRange(0, dataLengthToKeep) withBytes:bufUnread.bytes];
+        _currPosInBuffer = 0;
+        NSData *takenData = [_encodedData subdataWithRange:NSMakeRange(_currPosInData, dataLengthToTake)];
+        _currPosInData += dataLengthToTake;
+        [_buffer replaceBytesInRange:NSMakeRange(dataLengthToKeep, dataLengthToTake) withBytes:takenData.bytes];
         
-        [_encodedData getBytes:buf range:NSMakeRange(_currentPosition, bufLength)];
-        _currentPosition += bufLength-1;
-        
-        headerStart = [self findADTSSyncWordInBuffer:buf bufLength:bufLength];
-        
-        if (headerStart>0 && headerStart+adtsHeaderLength <= bufLength) {
-            uint8_t *header = [self getHeaderFromBuffer:buf headerStart:headerStart];
-            int framesize = [self headerBytesIsValid:header];
-            if (framesize > 0){
-                if (_inputFormat.mSampleRate == 0){
-                    _inputFormat = [self getFormatDescriptionFromADTSHeader:header];
-                }
-                
-            }
+        if (_encodedDataLength == _currPosInData) {
+            NSInteger bytesToZero = kBufLength - dataLengthToKeep - dataLengthToTake;
+            [_buffer resetBytesInRange:NSMakeRange(kBufLength-bytesToZero+1, bytesToZero)];
         }
         
-        continue;
+    } else {
+        NSData *takenData = [_encodedData subdataWithRange:NSMakeRange(_currPosInData, kBufLength)];
+        _currPosInData += kBufLength;
+        [_buffer replaceBytesInRange:NSMakeRange(0, kBufLength) withBytes:takenData.bytes];
     }
 }
 
-- (int)findADTSSyncWordInBuffer: (uint8_t *)buf bufLength: (uint)bufLength{
-    for (uint i=0; i<bufLength; i++){
+- (void)findNextFrame {
+    int headerStart = [self findADTSSyncWordInBuffer];
+    
+    if (headerStart<0){
+        return;
+    }
+    
+    uint8_t *header = malloc(sizeof(uint8_t) * kADTSHeaderLength);
+    [_buffer getBytes:header range:NSMakeRange(headerStart, kADTSHeaderLength)];
+    
+    int framesize = [self headerBytesIsValid:header];
+    
+    if (framesize <= 0){
+        _currPosInBuffer += kADTSHeaderLength;
+        return;
+    }
+    
+    if (framesize > kBufLength){
+        _currPosInBuffer = kBufLength-kADTSHeaderLength;
+        return;
+    }
+    
+    if (kBufLength - _currPosInBuffer >= framesize) {
+        NSData *frameData = [_buffer subdataWithRange:NSMakeRange(headerStart, framesize)];
+        [_decoderBuffer appendData:frameData];
+        _decoderBufLength += frameData.length;
+        _currPosInBuffer += framesize;
+        NSLog(@"added frame of %d bytes long", framesize);
+    }
+}
+
+- (int)findADTSSyncWordInBuffer{
+    uint8_t *buf = malloc(sizeof(uint8_t) * kBufLength);
+    [_buffer getBytes:buf length:kBufLength];
+    for (uint i=0; i<kBufLength-kADTSHeaderLength-1; i++){
+        _currPosInBuffer = (NSInteger)i;
         if (buf[i] == 0xFF) {
             if ((buf[i+1] & 0xF0) == 0xF0){
                 return i;
@@ -90,17 +211,6 @@
         }
     }
     return -1;
-}
-
-- (uint8_t *)getHeaderFromBuffer:(uint8_t *)buf headerStart: (int)headerStart{
-    uint adtsHeaderLength = 7;
-    uint8_t *header = malloc(sizeof(char) * adtsHeaderLength);
-    
-    for (int i=0; i<7; i++){
-        header[i]=buf[headerStart+i];
-    }
-    
-    return header;
 }
 
 - (int)headerBytesIsValid: (uint8_t *)header {

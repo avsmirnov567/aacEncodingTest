@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) NSInputStream *inputStream;
 @property (nonatomic, assign) NSUInteger bytesRead;
-@property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, strong) NSString *filePath;
 
 @end
@@ -56,6 +55,7 @@
     switch (eventCode) {
         case NSStreamEventOpenCompleted:
         {
+            [_decoder startBackgroundThreads];
             NSLog(@"Opened stream from file with path: %@", _filePath);
             break;
         }
@@ -72,21 +72,21 @@
                                     forMode:NSDefaultRunLoopMode];
             _inputStream = nil;
             _filePath = nil;
+            [_decoder notifyThatIncomingStreamEnded];
             break;
         }
         case NSStreamEventHasBytesAvailable:
         {
-            uint8_t buf[1024];
+            uint8_t buf[2048];
             NSInteger len = 0;
-            len = [(NSInputStream *)aStream read:buf maxLength:1024];
+            len = [(NSInputStream *)aStream read:buf maxLength:2048];
             
             if(len) {
                 [_decoder appendBytesToEncodedData:(const void*)buf length:len];
                 _bytesRead = _bytesRead+len;
-                NSLog(@"Bytes read count: %u", _bytesRead);
+                NSLog(@"Bytes read count: %lu", _bytesRead);
             } else {
                 NSLog(@"no buffer!");
-                [_decoder findNextFrame];
             }
             
             break;
