@@ -26,16 +26,19 @@ static const int kADTSHeaderLength = 7;
 @property (nonatomic, assign) NSInteger encodedDataLength;
 @property (nonatomic, assign) NSInteger currPosInData;
 @property (nonatomic, assign) NSInteger currPosInBuffer;
-@property (nonatomic, assign) AudioStreamBasicDescription inputFormat;
 
 //for decoding
 @property (nonatomic, strong) NSMutableData *decoderBuffer;
 @property (nonatomic, assign) NSInteger decoderBufLength;
 @property (nonatomic, assign) NSInteger currPosInDecoderBuf;
+@property (nonatomic, assign) AudioConverterRef audioConverter;
+@property (nonatomic, assign) BOOL converterConfigured;
 
 @end
 
 @implementation AACDecoder
+
+#pragma mark - Lifecycle
 
 - (instancetype)init
 {
@@ -62,6 +65,8 @@ static const int kADTSHeaderLength = 7;
 - (void)notifyThatIncomingStreamEnded{
     _incomingStreamEnded = YES;
 }
+
+#pragma mark - Multi-threading Logic
 
 - (BOOL)hasBytesToRead {
     return (_currPosInData < _encodedDataLength) && (_encodedDataLength>0);
@@ -118,6 +123,8 @@ static const int kADTSHeaderLength = 7;
     NSLog(@"----> DecodingQueue stopped!");
 }
 
+#pragma mark - Frames Reading Logic
+
 - (void)appendDataToEncodedData:(NSMutableData *)dataToAppend{
     if (!_encodedData){
         _encodedData = dataToAppend;
@@ -165,6 +172,7 @@ static const int kADTSHeaderLength = 7;
         NSData *takenData = [_encodedData subdataWithRange:NSMakeRange(_currPosInData, kBufLength)];
         _currPosInData += kBufLength;
         [_buffer replaceBytesInRange:NSMakeRange(0, kBufLength) withBytes:takenData.bytes];
+        
     }
 }
 
@@ -195,7 +203,10 @@ static const int kADTSHeaderLength = 7;
         [_decoderBuffer appendData:frameData];
         _decoderBufLength += frameData.length;
         _currPosInBuffer += framesize;
-        NSLog(@"added frame of %d bytes long", framesize);
+        if (!_converterConfigured){
+            [self configureAudioConverterWithInputFormat: [self getFormatDescriptionFromADTSHeader:header]];
+            _converterConfigured = YES;
+        }
     }
 }
 
@@ -245,7 +256,7 @@ static const int kADTSHeaderLength = 7;
     int channel = ((header[2] & 0x01) << 2) | ((header[3] & 0xC0) >> 6);
     int framesize = (((header[3] & 0x03) << 11) | (header[4] << 3) | ((header[5] & 0xE0) >> 5));
     
-    NSLog(@"sr=%u, profile=%u, channel=%u, framesize=%u", sampleRate, profile, channel, framesize);
+    NSLog(@"Converter configured for format: sr=%u, profile=%u, channel=%u, framesize=%u", sampleRate, profile, channel, framesize);
     
     AudioStreamBasicDescription inputFormat = {0};
     inputFormat.mBitsPerChannel = 0;
@@ -267,6 +278,28 @@ static const int kADTSHeaderLength = 7;
         return [sampleRates[sampleRateIndex] floatValue];
     }
     return -1;
+}
+
+#pragma mark - Audio Decoding Logic
+
+- (void)configureAudioConverterWithInputFormat: (AudioStreamBasicDescription)inputFormat {
+    AudioStreamBasicDescription outputFormat;
+    memset(&outputFormat, 0, sizeof(outputFormat));
+    outputFormat.mSampleRate       = 44100;
+    outputFormat.mFormatID         = kAudioFormatLinearPCM;
+    outputFormat.mFormatFlags      = kLinearPCMFormatFlagIsSignedInteger;
+    outputFormat.mBytesPerPacket   = 2;
+    outputFormat.mFramesPerPacket  = 1;
+    outputFormat.mBytesPerFrame    = 2;
+    outputFormat.mChannelsPerFrame = 1;
+    outputFormat.mBitsPerChannel   = 16;
+    outputFormat.mReserved         = 0;
+    
+    OSStatus status =  AudioConverterNew(&inputFormat, &outputFormat, &_audioConverter);
+    
+    if (status != 0) {
+        printf("setup converter error, status: %i\n", (int)status);
+    }
 }
 
 @end
