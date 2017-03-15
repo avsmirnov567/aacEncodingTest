@@ -7,11 +7,15 @@
 //
 
 #import "ASAudioEncodingManger.h"
+#import "AACDecoder.h"
+#import "NSData+ASBinary.h"
 
 @interface ASAudioEncodingManger () <NSStreamDelegate>
 
+@property (nonatomic, strong) AACDecoder *decoder;
+
 @property (nonatomic, strong) NSInputStream *inputStream;
-@property (nonatomic, assign) long bytesRead;
+@property (nonatomic, assign) NSUInteger bytesRead;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, strong) NSString *filePath;
 
@@ -32,6 +36,7 @@
 {
     self = [super init];
     if (self) {
+        _decoder = [[AACDecoder alloc] init];
         _inputStream = nil;
         _bytesRead = 0;
     }
@@ -71,20 +76,17 @@
         }
         case NSStreamEventHasBytesAvailable:
         {
-            if(!_data) {
-                _data = [NSMutableData data];
-            }
-            
             uint8_t buf[1024];
             NSInteger len = 0;
             len = [(NSInputStream *)aStream read:buf maxLength:1024];
             
             if(len) {
-                [_data appendBytes:(const void *)buf length:len];
+                [_decoder appendBytesToEncodedData:(const void*)buf length:len];
                 _bytesRead = _bytesRead+len;
-                NSLog(@"Bytes read count: %ld", _bytesRead);
+                NSLog(@"Bytes read count: %u", _bytesRead);
             } else {
                 NSLog(@"no buffer!");
+                [_decoder findNextFrame];
             }
             
             break;

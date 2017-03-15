@@ -18,6 +18,7 @@
 		E148E0251E766AD900CC1203 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0241E766AD900CC1203 /* AudioToolbox.framework */; };
 		E148E0291E767C9600CC1203 /* ASAudioEncodingManger.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */; };
 		E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */; };
+		E148E0331E769D4400CC1203 /* AACDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0321E769D4400CC1203 /* AACDecoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASAudioEncodingManger.m; path = Utils/ASAudioEncodingManger.m; sourceTree = "<group>"; };
 		E148E02E1E7691A100CC1203 /* NSData+ASBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+ASBinary.h"; path = "Extentions/NSData+ASBinary.h"; sourceTree = "<group>"; };
 		E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+ASBinary.m"; path = "Extentions/NSData+ASBinary.m"; sourceTree = "<group>"; };
+		E148E0311E769D4400CC1203 /* AACDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACDecoder.h; path = Utils/AACDecoder.h; sourceTree = "<group>"; };
+		E148E0321E769D4400CC1203 /* AACDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACDecoder.m; path = Utils/AACDecoder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 			children = (
 				E148E0271E767C9600CC1203 /* ASAudioEncodingManger.h */,
 				E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */,
+				E148E0311E769D4400CC1203 /* AACDecoder.h */,
+				E148E0321E769D4400CC1203 /* AACDecoder.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 			files = (
 				E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */,
 				E148E0291E767C9600CC1203 /* ASAudioEncodingManger.m in Sources */,
+				E148E0331E769D4400CC1203 /* AACDecoder.m in Sources */,
 				E148E00F1E7667B400CC1203 /* ViewController.m in Sources */,
 				E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */,
 				E148E0091E7667B400CC1203 /* main.m in Sources */,

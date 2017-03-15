@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "AACEncodingManger.h"
+#import "ASAudioEncodingManger.h"
 
 @interface ViewController () 
 
@@ -38,7 +38,7 @@
 
 - (IBAction)playButtonAction:(id)sender {
     if (!_filePath){ return; }
-    [[AACEncodingManger sharedInstance] setUpStreamFromFileWithPath:_filePath];
+    [[ASAudioEncodingManger sharedInstance] setUpStreamFromFileWithPath:_filePath];
 }
 
 @end
