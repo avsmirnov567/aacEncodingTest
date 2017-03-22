@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface AACDecoder : NSObject
 
@@ -15,5 +16,6 @@
 - (void)appendDataToEncodedData: (NSMutableData *)dataToAppend;
 - (void)appendBytesToEncodedData: (const void *)bytesToAppend length:(NSInteger)length;
 - (void)findNextFrame;
+- (size_t) copyAACFramesIntoBuffer: (AudioBufferList*)ioData;
 
 @end

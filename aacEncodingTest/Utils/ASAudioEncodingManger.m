@@ -84,7 +84,7 @@
             if(len) {
                 [_decoder appendBytesToEncodedData:(const void*)buf length:len];
                 _bytesRead = _bytesRead+len;
-                NSLog(@"Bytes read count: %lu", _bytesRead);
+                NSLog(@"Bytes read count: %lu", (unsigned long)_bytesRead);
             } else {
                 NSLog(@"no buffer!");
             }

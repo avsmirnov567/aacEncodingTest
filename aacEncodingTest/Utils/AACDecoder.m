@@ -8,7 +8,6 @@
 
 #import "AACDecoder.h"
 #import "NSData+ASBinary.h"
-#import <AudioToolbox/AudioToolbox.h>
 
 static const int kBufLength = 2048;
 static const int kADTSHeaderLength = 7;
@@ -31,17 +30,17 @@ static const int kADTSHeaderLength = 7;
 @property (nonatomic, strong) NSMutableArray<NSMutableData*> *decoderBuffer;
 @property (nonatomic, assign) NSInteger currPosInDecoderBuf;
 @property (nonatomic, assign) AudioConverterRef audioConverter;
+@property (nonatomic, strong) NSMutableData *decodedData;
 @property (nonatomic, assign) BOOL converterConfigured;
 
 @end
 
 @implementation AACDecoder
 
-struct PassthroughUserData {
+struct MyUserData {
     UInt32 mChannels;
     UInt32 mDataSize;
     const void* mData;
-    AudioStreamPacketDescription mPacket;
 };
 
 #pragma mark - Lifecycle
@@ -105,7 +104,7 @@ struct PassthroughUserData {
         typeof(self) strongSelf = weakSelf;
         while (1) {
             if ([strongSelf hasFramesToDecode]) {
-                [self decodeAudioFrame:_decoderBuffer[_currPosInDecoderBuf]];
+                [self startDecodingAudio];
                 _currPosInDecoderBuf += 1;
             }
         }
@@ -308,84 +307,72 @@ struct PassthroughUserData {
     }
 }
 
-OSStatus inInputDataProc(AudioConverterRef aAudioConverter,
-                         UInt32* aNumDataPackets /* in/out */,
-                         AudioBufferList* aData /* in/out */,
-                         AudioStreamPacketDescription** aPacketDesc,
-                         void* aUserData)
-{
-    
-    struct PassthroughUserData *userData = aUserData;
-    if (!userData->mDataSize) {
-        *aNumDataPackets = 0;
-        return -1;
+- (size_t) copyAACFramesIntoBuffer: (AudioBufferList*)ioData {
+    size_t originalBufferSize = _decoderBuffer[_currPosInDecoderBuf].length;
+    if (!originalBufferSize) {
+        return 0;
     }
     
-    if (aPacketDesc) {
-        userData->mPacket.mStartOffset = 0;
-        userData->mPacket.mVariableFramesInPacket = 0;
-        userData->mPacket.mDataByteSize = userData->mDataSize;
-        *aPacketDesc = &userData->mPacket;
-    }       
+    ioData->mBuffers[0].mData = (__bridge void * _Nullable)(_decoderBuffer[_currPosInDecoderBuf]);
+    ioData->mBuffers[0].mDataByteSize = _decoderBuffer[_currPosInDecoderBuf].length;
+    _currPosInDecoderBuf += 1;
     
-    aData->mBuffers[0].mNumberChannels = userData->mChannels;
-    aData->mBuffers[0].mDataByteSize = userData->mDataSize;
-    aData->mBuffers[0].mData = (void*)(userData->mData);
+    return originalBufferSize;
+}
+
+OSStatus inInputDataProc(AudioConverterRef inAudioConverter,
+                         UInt32 *ioNumberDataPackets,
+                         AudioBufferList *ioData,
+                         AudioStreamPacketDescription **outDataPacketDescription,
+                         void *inUserData)
+{
+    AACDecoder *decoder = (__bridge AACDecoder*)(inUserData);
     
-    // No more data to provide following this run.
-    userData->mDataSize = 0;
+    UInt32 requestedPackets = *ioNumberDataPackets;
+
+    size_t copiedSamples = [decoder copyAACFramesIntoBuffer:ioData];
     
+    if (copiedSamples < requestedPackets) {
+        NSLog(@"AAC buffer isn't full enough!");
+        *ioNumberDataPackets = 0;
+        return -1;
+    }
+    *ioNumberDataPackets = 1;
+    NSLog(@"Copied %zu bytes into ioData", copiedSamples);
     return noErr;
 }
 
-- (void)decodeAudioFrame:(NSData *)frame{
-
-    struct PassthroughUserData userData = { 1, (UInt32)frame.length, [frame bytes]};
-    NSMutableData *decodedData = [NSMutableData new];
+- (void)startDecodingAudio {
+    if (!_converterConfigured){
+        return;
+    }
     
-    const uint32_t MAX_AUDIO_FRAMES = 128;
-    const uint32_t maxDecodedSamples = MAX_AUDIO_FRAMES * 1;
-    
-    do{
-        uint8_t *buffer = (uint8_t *)malloc(maxDecodedSamples * sizeof(short int));
-        AudioBufferList decBuffer;
-        decBuffer.mNumberBuffers = 1;
-        decBuffer.mBuffers[0].mNumberChannels = 1;
-        decBuffer.mBuffers[0].mDataByteSize = maxDecodedSamples * sizeof(short int);
-        decBuffer.mBuffers[0].mData = buffer;
-        
-        UInt32 numFrames = MAX_AUDIO_FRAMES;
-        
-        AudioStreamPacketDescription outPacketDescription;
-        memset(&outPacketDescription, 0, sizeof(AudioStreamPacketDescription));
-        outPacketDescription.mDataByteSize = MAX_AUDIO_FRAMES;
-        outPacketDescription.mStartOffset = 0;
-        outPacketDescription.mVariableFramesInPacket = 0;
-        
-        OSStatus rv = AudioConverterFillComplexBuffer(_audioConverter,
-                                                      inInputDataProc,
-                                                      &userData,
-                                                      &numFrames /* in/out */,
-                                                      &decBuffer,
-                                                      &outPacketDescription);
-        
-        if (rv && rv != -1) {
-            NSLog(@"Error decoding audio stream: %d\n", rv);
-            break;
-        }
-        
-        if (numFrames) {
-            [decodedData appendBytes:decBuffer.mBuffers[0].mData length:decBuffer.mBuffers[0].mDataByteSize];
-        }
-        
-        if (rv == -1) {
-            break;
-        }
-        
-        
-    }while (true);
+    AudioBufferList outAudioBufferList = {0};
+    outAudioBufferList.mNumberBuffers = 1;
+    outAudioBufferList.mBuffers[0].mNumberChannels = 1;
+    outAudioBufferList.mBuffers[0].mDataByteSize = 1024;
+    outAudioBufferList.mBuffers[0].mData = malloc(1024 * sizeof(uint8_t));
+    AudioStreamPacketDescription *outPacketDescription = NULL;
+    UInt32 ioOutputDataPacketSize = 1;
+   
+    while (true){
+        if ([self hasFramesToDecode]){
+            OSStatus status = AudioConverterFillComplexBuffer(_audioConverter,
+                                                              inInputDataProc,
+                                                              (__bridge void *)(self),
+                                                              &ioOutputDataPacketSize,
+                                                              &outAudioBufferList,
+                                                              outPacketDescription);
 
-    NSLog(@"decoded %lu bytes of AAC", (unsigned long)decodedData.length);
+            NSError *error = nil;
+            
+            if (status == 0) {
+                [_decodedData appendData:[NSData dataWithBytes:outAudioBufferList.mBuffers[0].mData length:outAudioBufferList.mBuffers[0].mDataByteSize]];
+            } else {
+                error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
+            }
+        }
+    }
 }
 
 @end

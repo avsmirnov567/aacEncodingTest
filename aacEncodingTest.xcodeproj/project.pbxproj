@@ -78,7 +78,6 @@
 			children = (
 				E148E02A1E76915900CC1203 /* Extentions */,
 				E148E0261E767C8300CC1203 /* Utils */,
-				E148E01E1E76680000CC1203 /* Resources */,
 				E148E00A1E7667B400CC1203 /* AppDelegate.h */,
 				E148E00B1E7667B400CC1203 /* AppDelegate.m */,
 				E148E00D1E7667B400CC1203 /* ViewController.h */,
@@ -124,6 +123,7 @@
 				E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */,
 				E148E0311E769D4400CC1203 /* AACDecoder.h */,
 				E148E0321E769D4400CC1203 /* AACDecoder.m */,
+				E148E01E1E76680000CC1203 /* Resources */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
