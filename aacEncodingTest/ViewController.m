@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "ASAudioEncodingManger.h"
+#import <AVFoundation/AVFoundation.h>
+#import "STKAudioPlayer.h"
 
 @interface ViewController () 
 
@@ -37,8 +39,9 @@
 }
 
 - (IBAction)playButtonAction:(id)sender {
-    if (!_filePath){ return; }
-    [[ASAudioEncodingManger sharedInstance] setUpStreamFromFileWithPath:_filePath];
+    STKAudioPlayer* audioPlayer = [[STKAudioPlayer alloc] init];
+    NSURL* url = [NSURL fileURLWithPath:_filePath];
+    [audioPlayer play:[url absoluteString]];
 }
 
 @end

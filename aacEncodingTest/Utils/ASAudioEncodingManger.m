@@ -15,6 +15,7 @@
 @property (nonatomic, strong) AACDecoder *decoder;
 
 @property (nonatomic, strong) NSInputStream *inputStream;
+@property (nonatomic, strong) NSOutputStream *outputStream;
 @property (nonatomic, assign) NSUInteger bytesRead;
 @property (nonatomic, strong) NSString *filePath;
 
@@ -40,6 +41,27 @@
         _bytesRead = 0;
     }
     return self;
+}
+
+- (void)setUpStreamFromSocket {
+    CFStringRef url = CFSTR("http://91.109.241.253:8170/");
+    CFURLRef myURL = CFURLCreateWithString(kCFAllocatorDefault, url, NULL);
+    CFStringRef requestMethod = CFSTR("GET");
+    
+    CFHTTPMessageRef myRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
+                                                            requestMethod, myURL, kCFHTTPVersion1_1);
+    
+    CFReadStreamRef myReadStream = CFReadStreamCreateForHTTPRequest(kCFAllocatorDefault, myRequest);
+    
+    if (myReadStream) {
+        CFReadStreamSetProperty(myReadStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+        
+        _inputStream = (__bridge NSInputStream *)myReadStream;
+        [_inputStream setDelegate:self];
+        [_inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [_inputStream open];
+    }
+
 }
 
 - (void)setUpStreamFromFileWithPath:(NSString *)filePath {
@@ -77,18 +99,19 @@
         }
         case NSStreamEventHasBytesAvailable:
         {
-            uint8_t buf[2048];
-            NSInteger len = 0;
-            len = [(NSInputStream *)aStream read:buf maxLength:2048];
-            
-            if(len) {
-                [_decoder appendBytesToEncodedData:(const void*)buf length:len];
-                _bytesRead = _bytesRead+len;
-                NSLog(@"Bytes read count: %lu", (unsigned long)_bytesRead);
-            } else {
-                NSLog(@"no buffer!");
+            if (aStream == _inputStream) {
+                uint8_t buf[2048];
+                NSInteger len = 0;
+                len = [(NSInputStream *)aStream read:buf maxLength:2048];
+                
+                if(len) {
+                    [_decoder appendBytesToEncodedData:(const void*)buf length:len];
+                    _bytesRead = _bytesRead+len;
+                    NSLog(@"Bytes read count: %lu", (unsigned long)_bytesRead);
+                } else {
+                    NSLog(@"no buffer!");
+                }
             }
-            
             break;
         }
         default:

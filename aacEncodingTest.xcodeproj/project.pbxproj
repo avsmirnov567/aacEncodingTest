@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43EC03E7A1B9BAFA5652A49C /* libPods-aacEncodingTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E00BD6E5CFFFC8F7C4CAC102 /* libPods-aacEncodingTest.a */; };
 		E148E0091E7667B400CC1203 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0081E7667B400CC1203 /* main.m */; };
 		E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E00B1E7667B400CC1203 /* AppDelegate.m */; };
 		E148E00F1E7667B400CC1203 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E00E1E7667B400CC1203 /* ViewController.m */; };
@@ -22,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2318651F158AE9D311604895 /* Pods-aacEncodingTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aacEncodingTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-aacEncodingTest/Pods-aacEncodingTest.release.xcconfig"; sourceTree = "<group>"; };
+		C5FD263F1CDC7C5D5BBC2CF3 /* Pods-aacEncodingTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aacEncodingTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-aacEncodingTest/Pods-aacEncodingTest.debug.xcconfig"; sourceTree = "<group>"; };
+		E00BD6E5CFFFC8F7C4CAC102 /* libPods-aacEncodingTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-aacEncodingTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1381E1D1E85274700CFF388 /* aacEncodingTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = aacEncodingTest.entitlements; sourceTree = "<group>"; };
 		E148E0041E7667B400CC1203 /* aacEncodingTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aacEncodingTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E148E0081E7667B400CC1203 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E148E00A1E7667B400CC1203 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -50,6 +55,7 @@
 			files = (
 				E148E0251E766AD900CC1203 /* AudioToolbox.framework in Frameworks */,
 				E148E0231E766AD300CC1203 /* CoreAudio.framework in Frameworks */,
+				43EC03E7A1B9BAFA5652A49C /* libPods-aacEncodingTest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +68,7 @@
 				E148E0061E7667B400CC1203 /* aacEncodingTest */,
 				E148E0051E7667B400CC1203 /* Products */,
 				E148E0211E766AD300CC1203 /* Frameworks */,
+				E1B896EA5DD7641B1182EB6B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +83,7 @@
 		E148E0061E7667B400CC1203 /* aacEncodingTest */ = {
 			isa = PBXGroup;
 			children = (
+				E1381E1D1E85274700CFF388 /* aacEncodingTest.entitlements */,
 				E148E02A1E76915900CC1203 /* Extentions */,
 				E148E0261E767C8300CC1203 /* Utils */,
 				E148E00A1E7667B400CC1203 /* AppDelegate.h */,
@@ -112,6 +120,7 @@
 			children = (
 				E148E0241E766AD900CC1203 /* AudioToolbox.framework */,
 				E148E0221E766AD300CC1203 /* CoreAudio.framework */,
+				E00BD6E5CFFFC8F7C4CAC102 /* libPods-aacEncodingTest.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,6 +146,15 @@
 			name = Extentions;
 			sourceTree = "<group>";
 		};
+		E1B896EA5DD7641B1182EB6B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C5FD263F1CDC7C5D5BBC2CF3 /* Pods-aacEncodingTest.debug.xcconfig */,
+				2318651F158AE9D311604895 /* Pods-aacEncodingTest.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,9 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E148E01B1E7667B400CC1203 /* Build configuration list for PBXNativeTarget "aacEncodingTest" */;
 			buildPhases = (
+				303AB101A3FADC58DB2D65F2 /* [CP] Check Pods Manifest.lock */,
 				E148E0001E7667B400CC1203 /* Sources */,
 				E148E0011E7667B400CC1203 /* Frameworks */,
 				E148E0021E7667B400CC1203 /* Resources */,
+				ED7C0C9CCED16CB2296D35D5 /* [CP] Embed Pods Frameworks */,
+				C5E7907E2AF11278E5F8A886 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,6 +191,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 2RVNZTUX32;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -204,6 +230,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		303AB101A3FADC58DB2D65F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C5E7907E2AF11278E5F8A886 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-aacEncodingTest/Pods-aacEncodingTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED7C0C9CCED16CB2296D35D5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-aacEncodingTest/Pods-aacEncodingTest-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E148E0001E7667B400CC1203 /* Sources */ = {
@@ -331,8 +405,10 @@
 		};
 		E148E01C1E7667B400CC1203 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5FD263F1CDC7C5D5BBC2CF3 /* Pods-aacEncodingTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = aacEncodingTest/aacEncodingTest.entitlements;
 				DEVELOPMENT_TEAM = 2RVNZTUX32;
 				INFOPLIST_FILE = aacEncodingTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -343,8 +419,10 @@
 		};
 		E148E01D1E7667B400CC1203 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2318651F158AE9D311604895 /* Pods-aacEncodingTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = aacEncodingTest/aacEncodingTest.entitlements;
 				DEVELOPMENT_TEAM = 2RVNZTUX32;
 				INFOPLIST_FILE = aacEncodingTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
