@@ -11,8 +11,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "STKAudioPlayer.h"
 
-@interface ViewController () 
 
+@interface ViewController () <NSStreamDelegate>
+
+@property (nonatomic, assign) NSUInteger bytesRead;
+@property (nonatomic, strong) NSInputStream *inputStream;
 @property (nonatomic, strong) NSString *filePath;
 
 @end
@@ -33,15 +36,13 @@
     }
 }
 
-
-- (void)didReceiveMemoryWarning {
-    
-}
-
 - (IBAction)playButtonAction:(id)sender {
     STKAudioPlayer* audioPlayer = [[STKAudioPlayer alloc] init];
-    NSURL* url = [NSURL fileURLWithPath:_filePath];
-    [audioPlayer play:[url absoluteString]];
+    _inputStream = [[NSInputStream alloc] initWithFileAtPath:_filePath];
+
+    CFReadStreamRef playerInputStream = (__bridge CFReadStreamRef)_inputStream;
+    
+    [audioPlayer playStream:playerInputStream];
 }
 
 @end

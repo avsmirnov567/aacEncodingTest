@@ -67,8 +67,8 @@
 			children = (
 				E148E0061E7667B400CC1203 /* aacEncodingTest */,
 				E148E0051E7667B400CC1203 /* Products */,
-				E148E0211E766AD300CC1203 /* Frameworks */,
 				E1B896EA5DD7641B1182EB6B /* Pods */,
+				E148E0211E766AD300CC1203 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
