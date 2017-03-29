@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/STKAutoRecoveringHTTPDataSource.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/STKAutoRecoveringHTTPDataSource.h

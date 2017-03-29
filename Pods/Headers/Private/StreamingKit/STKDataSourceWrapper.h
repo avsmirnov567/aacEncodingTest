@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/STKDataSourceWrapper.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/STKDataSourceWrapper.h

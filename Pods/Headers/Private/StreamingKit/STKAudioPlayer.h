@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/STKAudioPlayer.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/STKAudioPlayer.h

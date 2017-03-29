@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/STKLocalFileDataSource.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/STKLocalFileDataSource.h

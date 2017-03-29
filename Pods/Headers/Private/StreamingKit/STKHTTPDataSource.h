@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/STKHTTPDataSource.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/STKHTTPDataSource.h

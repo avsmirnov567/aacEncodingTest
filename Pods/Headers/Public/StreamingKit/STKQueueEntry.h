@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/STKQueueEntry.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/STKQueueEntry.h

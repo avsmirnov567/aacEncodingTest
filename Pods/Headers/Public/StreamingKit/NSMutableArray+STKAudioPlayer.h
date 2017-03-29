@@ -1,1 +1,1 @@
-../../../StreamingKit/StreamingKit/StreamingKit/NSMutableArray+STKAudioPlayer.h
+../../../../Submodules/StreamingKit/StreamingKit/StreamingKit/NSMutableArray+STKAudioPlayer.h

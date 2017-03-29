@@ -4,7 +4,7 @@
 target 'aacEncodingTest' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
-
-  pod 'StreamingKit', '~> 0.1'
-
+  
+  pod 'StreamingKit', :path => 'Submodules/StreamingKit'
+  
 end

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "95BCAB5802B880C536D8AB5783939CB461FD3141",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "95BCAB5802B880C536D8AB5783939CB461FD3141" : 9223372036854775807,
+    "3E9414865BAE5433092B9D136FFC1F054EA505C2" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "62E50F59-C81E-4ADF-946A-79D92A448FDA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "95BCAB5802B880C536D8AB5783939CB461FD3141" : "aacEncodingTest\/",
+    "3E9414865BAE5433092B9D136FFC1F054EA505C2" : "aacEncodingTest\/Submodules\/StreamingKit\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "aacEncodingTest",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "aacEncodingTest.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/avsmirnov567\/StreamingKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3E9414865BAE5433092B9D136FFC1F054EA505C2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/avsmirnov567\/aacEncodingTest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "95BCAB5802B880C536D8AB5783939CB461FD3141"
+    }
+  ]
+}
