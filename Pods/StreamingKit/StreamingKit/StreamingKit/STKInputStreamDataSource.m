@@ -1,14 +1,14 @@
 //
-//  STKSocketDataSource.m
+//  STKInputStreamDataSource.m
 //  Pods
 //
 //  Created by Aleksandr Smirnov on 27.03.17.
 //
 //
 
-#import "STKNSStreamDataSource.h"
+#import "STKInputStreamDataSource.h"
 
-@interface STKNSStreamDataSource ()
+@interface STKInputStreamDataSource ()
 {
     CFReadStreamRef inputStream;
     SInt64 position;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation STKNSStreamDataSource
+@implementation STKInputStreamDataSource
 
 - (instancetype)initWithStream:(CFReadStreamRef)readStream {
     if (self = [super init])

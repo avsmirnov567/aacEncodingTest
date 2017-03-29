@@ -43,27 +43,6 @@
     return self;
 }
 
-- (void)setUpStreamFromSocket {
-    CFStringRef url = CFSTR("http://91.109.241.253:8170/");
-    CFURLRef myURL = CFURLCreateWithString(kCFAllocatorDefault, url, NULL);
-    CFStringRef requestMethod = CFSTR("GET");
-    
-    CFHTTPMessageRef myRequest = CFHTTPMessageCreateRequest(kCFAllocatorDefault,
-                                                            requestMethod, myURL, kCFHTTPVersion1_1);
-    
-    CFReadStreamRef myReadStream = CFReadStreamCreateForHTTPRequest(kCFAllocatorDefault, myRequest);
-    
-    if (myReadStream) {
-        CFReadStreamSetProperty(myReadStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
-        
-        _inputStream = (__bridge NSInputStream *)myReadStream;
-        [_inputStream setDelegate:self];
-        [_inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [_inputStream open];
-    }
-
-}
-
 - (void)setUpStreamFromFileWithPath:(NSString *)filePath {
     _filePath = filePath;
     _inputStream = [[NSInputStream alloc] initWithFileAtPath:filePath];
@@ -107,7 +86,7 @@
                 if(len) {
                     [_decoder appendBytesToEncodedData:(const void*)buf length:len];
                     _bytesRead = _bytesRead+len;
-                    NSLog(@"Bytes read count: %lu", (unsigned long)_bytesRead);
+                   // NSLog(@"Bytes read count: %lu", (unsigned long)_bytesRead);
                 } else {
                     NSLog(@"no buffer!");
                 }

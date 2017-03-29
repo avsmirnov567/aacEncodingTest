@@ -37,7 +37,7 @@
 #import "STKHTTPDataSource.h"
 #import "STKAutoRecoveringHTTPDataSource.h"
 #import "STKLocalFileDataSource.h"
-#import "STKNSStreamDataSource.h"
+#import "STKInputStreamDataSource.h"
 #import "STKQueueEntry.h"
 #import "NSMutableArray+STKAudioPlayer.h"
 #import "libkern/OSAtomic.h"
@@ -745,7 +745,7 @@ static void AudioFileStreamPacketsProc(void* clientData, UInt32 numberBytes, UIn
 }
 
 -(void) playStream:(CFReadStreamRef)readStream {
-    STKDataSource *dataSource = [[STKNSStreamDataSource alloc] initWithStream:readStream];
+    STKDataSource *dataSource = [[STKInputStreamDataSource alloc] initWithStream:readStream];
     [self playDataSource:dataSource withQueueItemID:dataSource];
 }
 
@@ -1553,8 +1553,6 @@ static void AudioFileStreamPacketsProc(void* clientData, UInt32 numberBytes, UIn
     }
     
     int read = [currentlyReadingEntry.dataSource readIntoBuffer:readBuffer withSize:readBufferSize];
-    NSData *incoming = [NSData dataWithBytes:readBuffer length:readBufferSize];
-    NSLog(@"%@", [self binaryStringFromData:incoming]);
     
     if (read == 0)
     {

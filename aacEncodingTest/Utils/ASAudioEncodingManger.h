@@ -12,6 +12,5 @@
 
 + (instancetype)sharedInstance;
 - (void)setUpStreamFromFileWithPath: (NSString *)filePath;
-- (void)setUpStreamFromSocket;
 
 @end

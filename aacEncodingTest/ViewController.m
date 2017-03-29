@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     NSBundle *mainBundle = [NSBundle mainBundle];
-    NSString *myFile = [mainBundle pathForResource: @"testaudio" ofType: @"aac"];
+    NSString *myFile = [mainBundle pathForResource: @"testaudio2" ofType: @"aac"];
     
     if([[NSFileManager defaultManager] fileExistsAtPath:myFile]) {
         _filePath = myFile;
