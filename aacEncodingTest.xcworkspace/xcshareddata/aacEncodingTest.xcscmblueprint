@@ -10,7 +10,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "62E50F59-C81E-4ADF-946A-79D92A448FDA",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "95BCAB5802B880C536D8AB5783939CB461FD3141" : "aacEncodingTest\/",
-    "3E9414865BAE5433092B9D136FFC1F054EA505C2" : "aacEncodingTest\/Submodules\/StreamingKit\/"
+    "3E9414865BAE5433092B9D136FFC1F054EA505C2" : "aacEncodingTest\/Submodules\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "aacEncodingTest",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

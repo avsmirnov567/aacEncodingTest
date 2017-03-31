@@ -16,11 +16,10 @@
 		E148E0171E7667B400CC1203 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E148E0151E7667B400CC1203 /* LaunchScreen.storyboard */; };
 		E148E0201E766A3500CC1203 /* testaudio.aac in Resources */ = {isa = PBXBuildFile; fileRef = E148E01F1E766A3500CC1203 /* testaudio.aac */; };
 		E148E0231E766AD300CC1203 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0221E766AD300CC1203 /* CoreAudio.framework */; };
-		E148E0291E767C9600CC1203 /* ASAudioEncodingManger.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */; };
+		E148E0291E767C9600CC1203 /* WMCRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0281E767C9600CC1203 /* WMCRecorder.m */; };
 		E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */; };
-		E148E0331E769D4400CC1203 /* AACDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0321E769D4400CC1203 /* AACDecoder.m */; };
 		E1B016D71E8BCBB600657DED /* testaudio2.aac in Resources */ = {isa = PBXBuildFile; fileRef = E1B016D61E8BCBB600657DED /* testaudio2.aac */; };
-		E1ED71791E8D1AB20060EF83 /* AACEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED71781E8D1AB20060EF83 /* AACEncoder.m */; };
+		E1ED71791E8D1AB20060EF83 /* WMCAACEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,15 +39,13 @@
 		E148E0181E7667B400CC1203 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E148E01F1E766A3500CC1203 /* testaudio.aac */ = {isa = PBXFileReference; lastKnownFileType = file; name = testaudio.aac; path = Resources/testaudio.aac; sourceTree = "<group>"; };
 		E148E0221E766AD300CC1203 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		E148E0271E767C9600CC1203 /* ASAudioEncodingManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASAudioEncodingManger.h; path = Utils/ASAudioEncodingManger.h; sourceTree = "<group>"; };
-		E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASAudioEncodingManger.m; path = Utils/ASAudioEncodingManger.m; sourceTree = "<group>"; };
+		E148E0271E767C9600CC1203 /* WMCRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCRecorder.h; path = Utils/WMCRecorder.h; sourceTree = "<group>"; };
+		E148E0281E767C9600CC1203 /* WMCRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCRecorder.m; path = Utils/WMCRecorder.m; sourceTree = "<group>"; };
 		E148E02E1E7691A100CC1203 /* NSData+ASBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+ASBinary.h"; path = "Extentions/NSData+ASBinary.h"; sourceTree = "<group>"; };
 		E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+ASBinary.m"; path = "Extentions/NSData+ASBinary.m"; sourceTree = "<group>"; };
-		E148E0311E769D4400CC1203 /* AACDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACDecoder.h; path = Utils/AACDecoder.h; sourceTree = "<group>"; };
-		E148E0321E769D4400CC1203 /* AACDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACDecoder.m; path = Utils/AACDecoder.m; sourceTree = "<group>"; };
 		E1B016D61E8BCBB600657DED /* testaudio2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; name = testaudio2.aac; path = Resources/testaudio2.aac; sourceTree = "<group>"; };
-		E1ED71771E8D1AB20060EF83 /* AACEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AACEncoder.h; path = Utils/AACEncoder.h; sourceTree = "<group>"; };
-		E1ED71781E8D1AB20060EF83 /* AACEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AACEncoder.m; path = Utils/AACEncoder.m; sourceTree = "<group>"; };
+		E1ED71771E8D1AB20060EF83 /* WMCAACEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCAACEncoder.h; path = Utils/WMCAACEncoder.h; sourceTree = "<group>"; };
+		E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCAACEncoder.m; path = Utils/WMCAACEncoder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,12 +128,10 @@
 		E148E0261E767C8300CC1203 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E148E0271E767C9600CC1203 /* ASAudioEncodingManger.h */,
-				E148E0281E767C9600CC1203 /* ASAudioEncodingManger.m */,
-				E148E0311E769D4400CC1203 /* AACDecoder.h */,
-				E148E0321E769D4400CC1203 /* AACDecoder.m */,
-				E1ED71771E8D1AB20060EF83 /* AACEncoder.h */,
-				E1ED71781E8D1AB20060EF83 /* AACEncoder.m */,
+				E148E0271E767C9600CC1203 /* WMCRecorder.h */,
+				E148E0281E767C9600CC1203 /* WMCRecorder.m */,
+				E1ED71771E8D1AB20060EF83 /* WMCAACEncoder.h */,
+				E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -290,10 +285,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */,
-				E148E0291E767C9600CC1203 /* ASAudioEncodingManger.m in Sources */,
-				E148E0331E769D4400CC1203 /* AACDecoder.m in Sources */,
+				E148E0291E767C9600CC1203 /* WMCRecorder.m in Sources */,
 				E148E00F1E7667B400CC1203 /* ViewController.m in Sources */,
-				E1ED71791E8D1AB20060EF83 /* AACEncoder.m in Sources */,
+				E1ED71791E8D1AB20060EF83 /* WMCAACEncoder.m in Sources */,
 				E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */,
 				E148E0091E7667B400CC1203 /* main.m in Sources */,
 			);

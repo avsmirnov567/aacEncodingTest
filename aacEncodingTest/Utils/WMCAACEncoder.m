@@ -1,5 +1,5 @@
 //
-//  AACEncoder.m
+//  WMCAACEncoder.m
 //  FFmpegEncoder
 //
 //  Created by Christopher Ballinger on 12/18/13.
@@ -7,11 +7,11 @@
 //
 //  http://stackoverflow.com/questions/10817036/can-i-use-avcapturesession-to-encode-an-aac-stream-to-memory
 
-#import "AACEncoder.h"
+#import "WMCAACEncoder.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface AACEncoder()
+@interface WMCAACEncoder()
 @property (nonatomic) AudioConverterRef audioConverter;
 @property (nonatomic) uint8_t *aacBuffer;
 @property (nonatomic) NSUInteger aacBufferSize;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation AACEncoder
+@implementation WMCAACEncoder
 
 - (void) dealloc {
     AudioConverterDispose(_audioConverter);
@@ -107,7 +107,7 @@
 
 static OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNumberDataPackets, AudioBufferList *ioData, AudioStreamPacketDescription **outDataPacketDescription, void *inUserData)
 {
-    AACEncoder *encoder = (__bridge AACEncoder *)(inUserData);
+    WMCAACEncoder *encoder = (__bridge WMCAACEncoder *)(inUserData);
     UInt32 requestedPackets = *ioNumberDataPackets;
     //NSLog(@"Number of packets requested: %d", (unsigned int)requestedPackets);
     size_t copiedSamples = [encoder copyPCMSamplesIntoBuffer:ioData];

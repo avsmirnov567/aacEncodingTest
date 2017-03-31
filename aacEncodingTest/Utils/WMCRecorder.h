@@ -1,5 +1,5 @@
 //
-//  ASAudioEncodingManger.h
+//  WMCRecorder.h
 //  aacEncodingTest
 //
 //  Created by Aleksandr Smirnov on 13.03.17.
@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASAudioEncodingManger : NSObject
+@interface WMCRecorder : NSObject
 
-+ (instancetype)sharedInstance;
-- (void)setUpStreamFromFileWithPath: (NSString *)filePath;
+@property (nonatomic) BOOL isRecording;
+
+- (void)startRecording;
+- (void)stopRecording;
 
 @end

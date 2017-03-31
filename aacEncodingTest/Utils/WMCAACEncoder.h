@@ -1,5 +1,5 @@
 //
-//  AACEncoder.h
+//  WMCAACEncoder.h
 //  FFmpegEncoder
 //
 //  Created by Christopher Ballinger on 12/18/13.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface AACEncoder : NSObject
+@interface WMCAACEncoder : NSObject
 
 @property (nonatomic) dispatch_queue_t encoderQueue;
 @property (nonatomic) dispatch_queue_t callbackQueue;
