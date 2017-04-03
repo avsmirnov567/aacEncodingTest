@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Peter Paulis. All rights reserved.
 //
 
-#import "BufferOutputStreamToInputStream.h"
+#import "WMCBufferWriter.h"
 
 // Categories
 #import "NSStream+BoundPairAdditions.h"
@@ -15,7 +15,7 @@
 #define TotalBufferCapacityHint     4096*1024 // 4MB
 #define CleanDataBufferOverOffset   (TotalBufferCapacityHint / 2.)
 
-@interface BufferOutputStreamToInputStream()
+@interface WMCBufferWriter()
 
 @property (nonatomic, strong, readwrite) NSOutputStream * outputStream;
 @property (strong, nonatomic, readwrite) NSInputStream * inputStream;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation BufferOutputStreamToInputStream
+@implementation WMCBufferWriter
 
 - (id)init {
     
@@ -46,9 +46,7 @@
     
 }
 
-////////////////////////////////////////////////////////////////////////
 #pragma mark - Getters / Setters
-////////////////////////////////////////////////////////////////////////
 
 - (NSMutableData *)dataBuffer {
     
@@ -60,9 +58,7 @@
     return _dataBuffer;
 }
 
-////////////////////////////////////////////////////////////////////////
 #pragma mark - Public
-////////////////////////////////////////////////////////////////////////
 
 - (void)openOutputStream {
     
@@ -104,9 +100,7 @@
     
 }
 
-////////////////////////////////////////////////////////////////////////
 #pragma mark - Private
-////////////////////////////////////////////////////////////////////////
 
 - (BOOL)sendDataChunk {
     
@@ -159,9 +153,7 @@
     return YES;
 }
 
-////////////////////////////////////////////////////////////////////////
 #pragma mark - NSStream
-////////////////////////////////////////////////////////////////////////
 
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
     

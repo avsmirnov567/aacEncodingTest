@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BufferOutputStreamToInputStream : NSObject<NSStreamDelegate>
+@interface WMCBufferWriter : NSObject<NSStreamDelegate>
 
 // you are free to set the streams delegate, you must also open and 'care' for it
 // in contradiction to output stream which is encapsulated
