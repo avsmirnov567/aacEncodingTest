@@ -18,6 +18,8 @@
 		E148E0231E766AD300CC1203 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E148E0221E766AD300CC1203 /* CoreAudio.framework */; };
 		E148E0291E767C9600CC1203 /* WMCRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E0281E767C9600CC1203 /* WMCRecorder.m */; };
 		E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */; };
+		E19A54711E9225D100D62622 /* NSStream+BoundPairAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E19A54701E9225D100D62622 /* NSStream+BoundPairAdditions.m */; };
+		E19A54741E92263C00D62622 /* BufferOutputStreamToInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = E19A54731E92263C00D62622 /* BufferOutputStreamToInputStream.m */; };
 		E1B016D71E8BCBB600657DED /* testaudio2.aac in Resources */ = {isa = PBXBuildFile; fileRef = E1B016D61E8BCBB600657DED /* testaudio2.aac */; };
 		E1ED71791E8D1AB20060EF83 /* WMCAACEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */; };
 /* End PBXBuildFile section */
@@ -43,6 +45,10 @@
 		E148E0281E767C9600CC1203 /* WMCRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCRecorder.m; path = Utils/WMCRecorder.m; sourceTree = "<group>"; };
 		E148E02E1E7691A100CC1203 /* NSData+ASBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+ASBinary.h"; path = "Extentions/NSData+ASBinary.h"; sourceTree = "<group>"; };
 		E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+ASBinary.m"; path = "Extentions/NSData+ASBinary.m"; sourceTree = "<group>"; };
+		E19A546F1E9225D100D62622 /* NSStream+BoundPairAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSStream+BoundPairAdditions.h"; path = "Extentions/NSStream+BoundPairAdditions.h"; sourceTree = "<group>"; };
+		E19A54701E9225D100D62622 /* NSStream+BoundPairAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSStream+BoundPairAdditions.m"; path = "Extentions/NSStream+BoundPairAdditions.m"; sourceTree = "<group>"; };
+		E19A54721E92263C00D62622 /* BufferOutputStreamToInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BufferOutputStreamToInputStream.h; path = Utils/BufferOutputStreamToInputStream.h; sourceTree = "<group>"; };
+		E19A54731E92263C00D62622 /* BufferOutputStreamToInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BufferOutputStreamToInputStream.m; path = Utils/BufferOutputStreamToInputStream.m; sourceTree = "<group>"; };
 		E1B016D61E8BCBB600657DED /* testaudio2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; name = testaudio2.aac; path = Resources/testaudio2.aac; sourceTree = "<group>"; };
 		E1ED71771E8D1AB20060EF83 /* WMCAACEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCAACEncoder.h; path = Utils/WMCAACEncoder.h; sourceTree = "<group>"; };
 		E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCAACEncoder.m; path = Utils/WMCAACEncoder.m; sourceTree = "<group>"; };
@@ -132,6 +138,8 @@
 				E148E0281E767C9600CC1203 /* WMCRecorder.m */,
 				E1ED71771E8D1AB20060EF83 /* WMCAACEncoder.h */,
 				E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */,
+				E19A54721E92263C00D62622 /* BufferOutputStreamToInputStream.h */,
+				E19A54731E92263C00D62622 /* BufferOutputStreamToInputStream.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -141,6 +149,8 @@
 			children = (
 				E148E02E1E7691A100CC1203 /* NSData+ASBinary.h */,
 				E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */,
+				E19A546F1E9225D100D62622 /* NSStream+BoundPairAdditions.h */,
+				E19A54701E9225D100D62622 /* NSStream+BoundPairAdditions.m */,
 			);
 			name = Extentions;
 			sourceTree = "<group>";
@@ -289,6 +299,8 @@
 				E148E00F1E7667B400CC1203 /* ViewController.m in Sources */,
 				E1ED71791E8D1AB20060EF83 /* WMCAACEncoder.m in Sources */,
 				E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */,
+				E19A54711E9225D100D62622 /* NSStream+BoundPairAdditions.m in Sources */,
+				E19A54741E92263C00D62622 /* BufferOutputStreamToInputStream.m in Sources */,
 				E148E0091E7667B400CC1203 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

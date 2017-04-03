@@ -7,17 +7,21 @@
 //
 
 #import "ViewController.h"
-#import "ASAudioEncodingManger.h"
+#import "WMCRecorder.h"
 #import <AVFoundation/AVFoundation.h>
 #import "STKAudioPlayer.h"
+#import "BufferOutputStreamToInputStream.h"
 
-
-@interface ViewController () <NSStreamDelegate>
+@interface ViewController () <NSStreamDelegate, WMCRecorderDelegate>
 
 @property (nonatomic, assign) NSUInteger bytesRead;
 @property (nonatomic, strong) NSInputStream *iStream;
 @property (nonatomic, strong) NSOutputStream *oStream;
 @property (nonatomic, strong) NSString *filePath;
+@property (nonatomic, strong) WMCRecorder *recorder;
+@property (nonatomic, strong) NSMutableData *encodedData;
+@property (nonatomic, strong) BufferOutputStreamToInputStream *bufferWriter;
+@property (nonatomic, assign) BOOL isRecording;
 
 @end
 
@@ -96,8 +100,36 @@
 }
 
 - (IBAction)playButtonAction:(id)sender {
-    [self initialSocket];
-    [self join];
+    if (_encodedData.length > 0) {
+        self.bufferWriter = [[BufferOutputStreamToInputStream alloc] init];
+        [self.bufferWriter openOutputStream];
+        
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        
+        CFReadStreamRef playerInputStream = (__bridge CFReadStreamRef)self.bufferWriter.inputStream;
+        STKAudioPlayer *ap = [[STKAudioPlayer alloc] init];
+        [ap playStream:playerInputStream];
+        
+        [self.bufferWriter addDataToBuffer:_encodedData];
+    }
+}
+
+- (IBAction)recordButtonAction:(id)sender {
+    if (!_isRecording) {
+        _recorder = [[WMCRecorder alloc] init];
+        _recorder.delegate = self;
+        _encodedData = [[NSMutableData alloc]init];
+        [_recorder startRecording];
+        _isRecording = YES;
+    } else {
+        _isRecording = NO;
+        [_recorder stopRecording];
+    }
+}
+
+- (void)recorderDidRecordData:(NSData *)recordedData {
+    [_encodedData appendData:recordedData];
 }
 
 @end

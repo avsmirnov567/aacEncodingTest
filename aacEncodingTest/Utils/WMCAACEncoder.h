@@ -16,5 +16,4 @@
 
 - (void) encodeSampleBuffer:(CMSampleBufferRef)sampleBuffer completionBlock:(void (^)(NSData *encodedData, NSError* error))completionBlock;
 
-
 @end

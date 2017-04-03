@@ -127,7 +127,7 @@ static OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNu
         return 0;
     }
     ioData->mBuffers[0].mData = _pcmBuffer;
-    ioData->mBuffers[0].mDataByteSize = _pcmBufferSize;
+    ioData->mBuffers[0].mDataByteSize = (UInt32)_pcmBufferSize;
     _pcmBuffer = NULL;
     _pcmBufferSize = 0;
     return originalBufferSize;
@@ -153,7 +153,7 @@ static OSStatus inInputDataProc(AudioConverterRef inAudioConverter, UInt32 *ioNu
         AudioBufferList outAudioBufferList = {0};
         outAudioBufferList.mNumberBuffers = 1;
         outAudioBufferList.mBuffers[0].mNumberChannels = 1;
-        outAudioBufferList.mBuffers[0].mDataByteSize = _aacBufferSize;
+        outAudioBufferList.mBuffers[0].mDataByteSize = (UInt32)_aacBufferSize;
         outAudioBufferList.mBuffers[0].mData = _aacBuffer;
         AudioStreamPacketDescription *outPacketDescription = NULL;
         UInt32 ioOutputDataPacketSize = 1;
