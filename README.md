@@ -1,7 +1,7 @@
-# voipCallsTest
-This repo contains my experiments of making VoIP-calls implementation in Objective C.
+# aacEncodingTest
+This repo contains my experiments of recording audio to AAC LC format and playback it.
 
-I used my company serverside (written on PHP) for establishing SIP-connections between two devices: parent (can only call) and child (can only receive). The most complicated thing was audio decoding/encoding. All data is transfered in AAC LC format with ADTS headers. Finally, I made decoding by writing custom data source for StreamingKit library, made by Thong Nguen. For encoding, I used class written by Criss Ballinger.
+For encoding, I used class written by Criss Ballinger. Decoding was solved by writing custom data source for StreamingKit library, made by Thong Nguen. It was neccessary for me to work with streams only, because I have planned to use this project in VoIP-calls implementation.
 
 Link to Thong Nguen repo: https://github.com/tumtumtum/StreamingKit
 
