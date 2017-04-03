@@ -20,7 +20,6 @@
 		E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */ = {isa = PBXBuildFile; fileRef = E148E02F1E7691A100CC1203 /* NSData+ASBinary.m */; };
 		E19A54711E9225D100D62622 /* NSStream+BoundPairAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = E19A54701E9225D100D62622 /* NSStream+BoundPairAdditions.m */; };
 		E19A54741E92263C00D62622 /* WMCBufferWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = E19A54731E92263C00D62622 /* WMCBufferWriter.m */; };
-		E19A54771E9244B800D62622 /* WMCCallManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E19A54761E9244B800D62622 /* WMCCallManager.m */; };
 		E1B016D71E8BCBB600657DED /* testaudio2.aac in Resources */ = {isa = PBXBuildFile; fileRef = E1B016D61E8BCBB600657DED /* testaudio2.aac */; };
 		E1ED71791E8D1AB20060EF83 /* WMCAACEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */; };
 /* End PBXBuildFile section */
@@ -50,8 +49,6 @@
 		E19A54701E9225D100D62622 /* NSStream+BoundPairAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSStream+BoundPairAdditions.m"; path = "Extentions/NSStream+BoundPairAdditions.m"; sourceTree = "<group>"; };
 		E19A54721E92263C00D62622 /* WMCBufferWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCBufferWriter.h; path = Utils/WMCBufferWriter.h; sourceTree = "<group>"; };
 		E19A54731E92263C00D62622 /* WMCBufferWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCBufferWriter.m; path = Utils/WMCBufferWriter.m; sourceTree = "<group>"; };
-		E19A54751E9244B800D62622 /* WMCCallManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCCallManager.h; path = Utils/WMCCallManager.h; sourceTree = "<group>"; };
-		E19A54761E9244B800D62622 /* WMCCallManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCCallManager.m; path = Utils/WMCCallManager.m; sourceTree = "<group>"; };
 		E1B016D61E8BCBB600657DED /* testaudio2.aac */ = {isa = PBXFileReference; lastKnownFileType = file; name = testaudio2.aac; path = Resources/testaudio2.aac; sourceTree = "<group>"; };
 		E1ED71771E8D1AB20060EF83 /* WMCAACEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMCAACEncoder.h; path = Utils/WMCAACEncoder.h; sourceTree = "<group>"; };
 		E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMCAACEncoder.m; path = Utils/WMCAACEncoder.m; sourceTree = "<group>"; };
@@ -143,8 +140,6 @@
 				E1ED71781E8D1AB20060EF83 /* WMCAACEncoder.m */,
 				E19A54721E92263C00D62622 /* WMCBufferWriter.h */,
 				E19A54731E92263C00D62622 /* WMCBufferWriter.m */,
-				E19A54751E9244B800D62622 /* WMCCallManager.h */,
-				E19A54761E9244B800D62622 /* WMCCallManager.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -302,7 +297,6 @@
 				E148E0301E7691A100CC1203 /* NSData+ASBinary.m in Sources */,
 				E148E0291E767C9600CC1203 /* WMCRecorder.m in Sources */,
 				E148E00F1E7667B400CC1203 /* ViewController.m in Sources */,
-				E19A54771E9244B800D62622 /* WMCCallManager.m in Sources */,
 				E1ED71791E8D1AB20060EF83 /* WMCAACEncoder.m in Sources */,
 				E148E00C1E7667B400CC1203 /* AppDelegate.m in Sources */,
 				E19A54711E9225D100D62622 /* NSStream+BoundPairAdditions.m in Sources */,
